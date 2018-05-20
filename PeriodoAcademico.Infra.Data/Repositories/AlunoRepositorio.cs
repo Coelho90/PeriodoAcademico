@@ -57,6 +57,14 @@ namespace PeriodoAcademico.Infra.Data.Repositories
                 return d.Aluno.Find(id);
             }
         }
+
+        public List<Aluno> ListTopFive()
+        {
+            using (DataContext d = new DataContext())
+            {
+                return d.Aluno.OrderByDescending(a => a.Media).Take(5).ToList();
+            }
+        }
        
     }
 }

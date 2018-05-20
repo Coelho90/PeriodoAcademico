@@ -55,7 +55,13 @@ namespace PeriodoAcademico.Infra.Data.Mappings
                 .HasColumnName("IdTurma")
                 .IsRequired();
 
+            Property(a => a.Media)
+                .HasColumnName("Media")
+                .IsOptional();
 
+            Property(a => a.FlagCompeticao)
+                .HasColumnName("FlagCompeticao")
+                .IsOptional();
         }
 
 

@@ -17,6 +17,8 @@ namespace PeriodoAcademico.Models
         public double ProvaFinal { get; set; }
         public double ProvaEspecial { get; set; }
         public Situacao Situacao { get; set; }
+        public bool FlagCompeticao { get; set; }
+        public double Media { get; set; }
         public int IdTurma { get; set; }
 
     }

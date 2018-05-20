@@ -87,6 +87,8 @@ namespace PeriodoAcademico.Controllers
                     model.ProvaEspecial = a.ProvaEspecial;
                     model.IdTurma = a.IdTurma;
                     model.Situacao = a.Situacao;
+                    model.Media = a.Media;
+                    model.FlagCompeticao = a.FlagCompeticao;
 
                     lista.Add(model);
 
