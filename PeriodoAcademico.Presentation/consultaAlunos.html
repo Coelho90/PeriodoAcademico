@@ -29,6 +29,7 @@
                     <option value="Prova2">Prova 2</option>
                     <option value="Prova3">Prova 3</option>
                     <option value="ProvaFinal">Prova Final</option>
+                    <option value="Media">Media</option>
                     <option value="Situacao">Situação</option>
                     <option value="IdTurma">ID da Turma</option>
                 </select>
@@ -46,6 +47,7 @@
                     <th>Prova 2</th>
                     <th>Prova 3</th>
                     <th>Prova Final</th>
+                    <th>Media</th>
                     <th>Situação</th>
                     <th>Turma ID</th>
                 </tr>
@@ -58,6 +60,7 @@
                     <td>{{a.Prova2}}</td>
                     <td>{{a.Prova3}}</td>
                     <td>{{a.ProvaFinal}}</td>
+                    <td>{{a.Media}}</td>
                     <td>{{a.Situacao}}</td>
                     <td>{{a.IdTurma}}</td>
                 </tr>
@@ -79,22 +82,22 @@
 
     <script>
 
-       
+
         var appConsultaAlunos = angular.module('appConsultaAlunos', []);
 
-       
+
         appConsultaAlunos.controller('consultaController',
             function ($scope, $http) {
 
-                
+
                 $scope.consultar = function () {
 
-                    
+
                     $http.get("http://localhost:63823/api/aluno/listartodos")
-                        .then(function (d) { 
+                        .then(function (d) {
                             $scope.alunos = d.data;
                         })
-                        .catch(function (e) { 
+                        .catch(function (e) {
                             $scope.mensagem = e.data;
                         });
                 };

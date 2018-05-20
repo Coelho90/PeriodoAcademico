@@ -13,7 +13,7 @@ namespace PeriodoAcademico.Infra.Data.Context
     public class DataContext : DbContext
     {
 
-        public DataContext() : base(ConfigurationManager.ConnectionStrings["base"].ConnectionString)
+        public DataContext() : base(ConfigurationManager.ConnectionStrings["banco"].ConnectionString)
         {
 
 

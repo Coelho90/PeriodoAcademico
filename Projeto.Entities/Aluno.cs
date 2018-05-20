@@ -54,20 +54,19 @@ namespace Projeto.Entities
             double pesoProva1 = 1;
             double pesoProva2 = 1.2;
             double pesoProva3 = 1.4;
-            double pesoProvaFinal = 1;
             double mediaFinal = 0;
 
             if (Situacao == Situacao.Recuperacao)
             {
-                mediaFinal = (Prova1 * pesoProva1 + Prova2 * pesoProva2 + Prova3 * pesoProva3 + ProvaFinal * pesoProvaFinal) / (pesoProva1 + pesoProva2 + pesoProva3 + pesoProvaFinal);
+                mediaFinal = (Media + ProvaFinal) / 2;
             }
             else
             {
                 mediaFinal = (Prova1 * pesoProva1 + Prova2 * pesoProva2 + Prova3 * pesoProva3) / (pesoProva1 + pesoProva2 + pesoProva3);
             }
             DefineSituacao(mediaFinal);
-            Media = mediaFinal;
-            return mediaFinal;
+            Media = Math.Round(mediaFinal,1);
+            return Media;
         }
 
 
@@ -75,11 +74,17 @@ namespace Projeto.Entities
         {
             double mediaAprovado = 6;
             double mediaReprovado = 4;
+            double mediaRecuperacao = 5;
 
-            if (ProvaFinal != 0 && mediaFinal < mediaAprovado && mediaFinal >= mediaReprovado)
+            if (ProvaFinal != 0 && mediaFinal < mediaRecuperacao)
             {
                 Situacao = Situacao.Reprovado;
 
+
+            }
+            else if (Situacao == Situacao.Recuperacao && mediaFinal >= mediaRecuperacao)
+            {
+                Situacao = Situacao.Aprovado;
 
             }
             else if (mediaFinal >= mediaAprovado)
