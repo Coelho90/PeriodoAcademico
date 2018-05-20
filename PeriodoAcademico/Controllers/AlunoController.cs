@@ -129,7 +129,9 @@ namespace PeriodoAcademico.Controllers
                     model.MediaCompeticao = a.CalcularMediaCompeticao();
                     model.FlagCompeticao = a.FlagCompeticao;
 
+                    rp.Update(a);
                     lista.Add(model);
+                    
 
                 }
 

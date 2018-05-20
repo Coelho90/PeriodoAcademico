@@ -68,7 +68,7 @@ namespace Projeto.Entities
                 mediaFinal = (Prova1 * pesoProva1 + Prova2 * pesoProva2 + Prova3 * pesoProva3) / (pesoProva1 + pesoProva2 + pesoProva3);
             }
             DefineSituacao(mediaFinal);
-            Media = Math.Round(mediaFinal,1);
+            Media = Math.Round(mediaFinal, 1);
             return Media;
         }
 
@@ -82,7 +82,7 @@ namespace Projeto.Entities
             if (ProvaFinal != 0 && mediaFinal < mediaRecuperacao)
             {
                 Situacao = Situacao.Reprovado;
-                
+
             }
             else if (mediaFinal < mediaAprovado && mediaFinal >= mediaReprovado)
             {
@@ -95,13 +95,13 @@ namespace Projeto.Entities
             else if (Situacao == Situacao.Recuperacao && mediaFinal >= mediaRecuperacao)
             {
                 Situacao = Situacao.Aprovado;
-                FlagCompeticao = true;
+
 
             }
             else if (mediaFinal >= mediaAprovado)
             {
                 Situacao = Situacao.Aprovado;
-                FlagCompeticao = true;
+
             }
 
         }
@@ -117,14 +117,14 @@ namespace Projeto.Entities
                 ProvaFinal = AlunosUtil.NotasAleatorias();
                 DefineSituacao(MediaFinal());
             }
-            
+
         }
 
         private void GerarNotaCompeticao()
         {
             ProvaEspecial = AlunosUtil.NotasAleatorias();
         }
-        
+
         public double CalcularMediaCompeticao()
         {
             double pesoProvasAnteriores = 1;
@@ -132,17 +132,17 @@ namespace Projeto.Entities
 
             GerarNotaCompeticao();
 
-            if(ProvaFinal != 0)
+            if (ProvaFinal != 0)
             {
-            MediaCompeticao = Math.Round((Prova1 * pesoProvasAnteriores + Prova2 * pesoProvasAnteriores + Prova3 * pesoProvasAnteriores + ProvaFinal * pesoProvasAnteriores + ProvaEspecial * pesoProvaEspecial )
-                                / (pesoProvasAnteriores * 4 + ProvaEspecial),1);
+                MediaCompeticao = Math.Round((Prova1 * pesoProvasAnteriores + Prova2 * pesoProvasAnteriores + Prova3 * pesoProvasAnteriores + ProvaFinal * pesoProvasAnteriores + ProvaEspecial * pesoProvaEspecial)
+                                    / (pesoProvasAnteriores * 4 + ProvaEspecial), 1);
 
 
             }
             else
             {
-                MediaCompeticao = Math.Round((Prova1 * pesoProvasAnteriores + Prova2 * pesoProvasAnteriores + Prova3 * pesoProvasAnteriores  + ProvaEspecial * pesoProvaEspecial)
-                                / (pesoProvasAnteriores * 3 + ProvaEspecial),1);
+                MediaCompeticao = Math.Round((Prova1 * pesoProvasAnteriores + Prova2 * pesoProvasAnteriores + Prova3 * pesoProvasAnteriores + ProvaEspecial * pesoProvaEspecial)
+                                / (pesoProvasAnteriores * 3 + ProvaEspecial), 1);
             }
 
             return MediaCompeticao;
