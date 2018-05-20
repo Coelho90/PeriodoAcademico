@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="consultaAlunos.html" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <None Include="Web.Debug.config">
@@ -79,7 +80,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="consultaAlunos.html" />
+    <Content Include="competicao.html" />
     <Content Include="cadastroAlunos.html" />
     <Content Include="consultaTurmas.html" />
     <Content Include="cadastroTurmas.html" />

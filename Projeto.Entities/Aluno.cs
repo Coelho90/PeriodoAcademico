@@ -2,6 +2,7 @@
 using Projeto.Entities.Enum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,8 @@ namespace Projeto.Entities
         public Situacao Situacao { get; set; }
         public bool FlagCompeticao { get; set; }
         public double Media { get; set; }
+
+        public double MediaCompeticao { get; set; }
 
         public int IdTurma { get; set; }
         public Turma Turma { get; set; }
@@ -79,17 +82,7 @@ namespace Projeto.Entities
             if (ProvaFinal != 0 && mediaFinal < mediaRecuperacao)
             {
                 Situacao = Situacao.Reprovado;
-
-
-            }
-            else if (Situacao == Situacao.Recuperacao && mediaFinal >= mediaRecuperacao)
-            {
-                Situacao = Situacao.Aprovado;
-
-            }
-            else if (mediaFinal >= mediaAprovado)
-            {
-                Situacao = Situacao.Aprovado;
+                
             }
             else if (mediaFinal < mediaAprovado && mediaFinal >= mediaReprovado)
             {
@@ -98,6 +91,17 @@ namespace Projeto.Entities
             else if (mediaFinal <= 4)
             {
                 Situacao = Situacao.Reprovado;
+            }
+            else if (Situacao == Situacao.Recuperacao && mediaFinal >= mediaRecuperacao)
+            {
+                Situacao = Situacao.Aprovado;
+                FlagCompeticao = true;
+
+            }
+            else if (mediaFinal >= mediaAprovado)
+            {
+                Situacao = Situacao.Aprovado;
+                FlagCompeticao = true;
             }
 
         }
@@ -115,7 +119,34 @@ namespace Projeto.Entities
             }
             
         }
+
+        private void GerarNotaCompeticao()
+        {
+            ProvaEspecial = AlunosUtil.NotasAleatorias();
+        }
         
+        public double CalcularMediaCompeticao()
+        {
+            double pesoProvasAnteriores = 1;
+            double pesoProvaEspecial = 2;
+
+            GerarNotaCompeticao();
+
+            if(ProvaFinal != 0)
+            {
+            MediaCompeticao = Math.Round((Prova1 * pesoProvasAnteriores + Prova2 * pesoProvasAnteriores + Prova3 * pesoProvasAnteriores + ProvaFinal * pesoProvasAnteriores + ProvaEspecial * pesoProvaEspecial )
+                                / (pesoProvasAnteriores * 4 + ProvaEspecial),1);
+
+
+            }
+            else
+            {
+                MediaCompeticao = Math.Round((Prova1 * pesoProvasAnteriores + Prova2 * pesoProvasAnteriores + Prova3 * pesoProvasAnteriores  + ProvaEspecial * pesoProvaEspecial)
+                                / (pesoProvasAnteriores * 3 + ProvaEspecial),1);
+            }
+
+            return MediaCompeticao;
+        }
 
         public override string ToString()
         {

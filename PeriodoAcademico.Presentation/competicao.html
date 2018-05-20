@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html ng-app="appCompeticao">
+<head>
+    <meta charset="utf-8" />
+    <title>Periodo Academico</title>
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body class="container">
+
+    <h2>Competição</h2>
+    <a href="/index.html">Página inicial</a>
+    <hr />
+
+    <div>
+        {{mensagem}}
+    </div>
+
+    <div ng-controller="consultaController">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Ordenar por:</label>
+                <select class="form-control" ng-model="ordenacao">
+                    <option value="">Escolha uma Opção</option>
+                    <option value="IdAluno">ID</option>
+                    <option value="Nome">Nome</option>
+                    <option value="Prova1">Prova 1</option>
+                    <option value="Prova2">Prova 2</option>
+                    <option value="Prova3">Prova 3</option>
+                    <option value="ProvaFinal">Prova Final</option>
+                    <option value="Media">Media</option>
+                    <option value="MediaCompeticao">Media Competição</option>
+                    <option value="Situacao">Situação</option>
+                    <option value="IdTurma">ID da Turma</option>
+                </select>
+            </div>
+        </div>
+
+        <br />
+
+        <table class="table table-hover" ng-init="consultar()">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Prova 1</th>
+                    <th>Prova 2</th>
+                    <th>Prova 3</th>
+                    <th>Prova Final</th>
+                    <th>Media</th>
+                    <th>Media Competição</th>
+                    <th>Situação</th>
+                    <th>Turma ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="a in alunos | orderBy : ordenacao">
+                    <td>{{a.IdAluno}}</td>
+                    <td>{{a.Nome}}</td>
+                    <td>{{a.Prova1}}</td>
+                    <td>{{a.Prova2}}</td>
+                    <td>{{a.Prova3}}</td>
+                    <td>{{a.ProvaFinal}}</td>
+                    <td>{{a.Media}}</td>
+                    <td>{{a.MediaCompeticao}}</td>
+                    <td>{{a.Situacao}}</td>
+                    <td>{{a.IdTurma}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        Quantidade de Alunos: {{(alunos).length}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+
+    <script>
+
+
+        var appCompeticao = angular.module('appCompeticao', []);
+
+
+        appCompeticao.controller('consultaController',
+            function ($scope, $http) {
+
+
+                $scope.consultar = function () {
+
+
+                    $http.get("http://localhost:63823/api/aluno/listarcincoprimeiros")
+                        .then(function (d) {
+                            $scope.alunos = d.data;
+                        })
+                        .catch(function (e) {
+                            $scope.mensagem = e.data;
+                        });
+                };
+            });
+
+    </script>
+
+</body>
+</html>

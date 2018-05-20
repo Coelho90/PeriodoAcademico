@@ -19,6 +19,7 @@ namespace PeriodoAcademico.Models
         public Situacao Situacao { get; set; }
         public bool FlagCompeticao { get; set; }
         public double Media { get; set; }
+        public double MediaCompeticao { get; set; }
         public int IdTurma { get; set; }
 
     }

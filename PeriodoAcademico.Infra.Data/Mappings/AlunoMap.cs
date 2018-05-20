@@ -62,6 +62,8 @@ namespace PeriodoAcademico.Infra.Data.Mappings
             Property(a => a.FlagCompeticao)
                 .HasColumnName("FlagCompeticao")
                 .IsOptional();
+
+
         }
 
 

@@ -103,7 +103,44 @@ namespace PeriodoAcademico.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("listarcincoprimeiros")]
+        public HttpResponseMessage GetTopFive()
+        {
+            try
+            {
+                List<AlunoConsultaViewModel> lista = new List<AlunoConsultaViewModel>();
 
+                AlunoRepositorio rp = new AlunoRepositorio();
+                foreach (Aluno a in rp.ListTopFive())
+                {
+                    AlunoConsultaViewModel model = new AlunoConsultaViewModel();
+
+                    model.IdAluno = a.IdAluno;
+                    model.Nome = a.Nome;
+                    model.Prova1 = a.Prova1;
+                    model.Prova2 = a.Prova2;
+                    model.Prova3 = a.Prova3;
+                    model.ProvaFinal = a.ProvaFinal;
+                    model.ProvaEspecial = a.ProvaEspecial;
+                    model.IdTurma = a.IdTurma;
+                    model.Situacao = a.Situacao;
+                    model.Media = a.Media;
+                    model.MediaCompeticao = a.CalcularMediaCompeticao();
+                    model.FlagCompeticao = a.FlagCompeticao;
+
+                    lista.Add(model);
+
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, lista);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse
+                    (HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
 
 
 
