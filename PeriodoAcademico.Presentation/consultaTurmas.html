@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html ng-app="appConsultaTurmas">
+<head>
+    <meta charset="utf-8" />
+    <title>Periodo Academico</title>
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body class="container">
+
+    <h2>Consulta de Trumas</h2>
+    <a href="/index.html">Página inicial</a>
+    <hr />
+
+    <div>
+        {{mensagem}}
+    </div>
+
+    <div ng-controller="consultaController">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Ordenar por:</label>
+                <select class="form-control" ng-model="ordenacao">
+                    <option value="">Escolha uma Opção</option>
+                    <option value="IdTurma">ID</option>
+                    <option value="Nome">Nome</option>
+                </select>
+            </div>
+        </div>
+
+        <br />
+
+        <table class="table table-hover" ng-init="consultar()">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="t in turmas | orderBy : ordenacao">
+                    <td>{{t.IdTurma}}</td>
+                    <td>{{t.Nome}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        Quantidade de Turmas: {{(turmas).length}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+
+    <script>
+
+
+        var appConsultaTurmas = angular.module('appConsultaTurmas', []);
+
+
+        appConsultaTurmas.controller('consultaController',
+            function ($scope, $http) {
+
+
+                $scope.consultar = function () {
+
+
+                    $http.get("http://localhost:63823/api/turma/listartodos")
+                        .then(function (d) {
+                            $scope.turmas = d.data;
+                        })
+                        .catch(function (e) {
+                            $scope.mensagem = e.data;
+                        });
+                };
+            });
+
+    </script>
+
+</body>
+</html>

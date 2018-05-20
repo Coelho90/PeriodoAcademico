@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html ng-app="appCadastroAluno">
+<head>
+    <meta charset="utf-8" />
+    <title>Periodo Academico</title>
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body class="container">
+
+    <h2>Cadastro de Alunos</h2>
+    <a href="/index.html">Página inicial</a>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4" ng-controller="cadastroController">
+
+            <label>Nome do Aluno:</label>
+            <input type="text" class="form-control"
+                   ng-model="aluno.Nome" />
+            <br />
+
+            <label>ID da Turma:</label>
+            <input type="text" class="form-control"
+                   ng-model="aluno.IdTurma" />
+            <br />
+
+            <button class="btn btn-success" ng-click="cadastrar()">
+                Cadastrar Aluno
+            </button>
+            <br />
+            <br />
+
+            <strong>{{mensagem}}</strong>
+
+        </div>
+    </div>
+
+
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script src="Scripts/angular.min.js"></script>
+
+    <script>
+
+
+        var appCadastroAluno = angular.module('appCadastroAluno', []);
+
+
+        appCadastroAluno.controller('cadastroController',
+            function ($scope, $http) {
+
+
+                $scope.cadastrar = function () {
+
+
+                    $scope.mensagem = "Processando, por favor aguarde.";
+
+
+                    $http.post('http://localhost:63823/api/aluno/cadastrar', $scope.aluno)
+                        .then(function (d) {
+
+
+                            $scope.mensagem = d.data;
+
+
+                            $scope.aluno = {};
+                        })
+                        .catch(function (e) {
+                            $scope.mensagem = "Ocorreu um erro: " + e.data;
+                        });
+                };
+            });
+
+    </script>
+
+</body>
+</html>
