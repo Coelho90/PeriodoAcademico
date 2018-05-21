@@ -25,10 +25,6 @@
                     <option value="">Escolha uma Opção</option>
                     <option value="IdAluno">ID</option>
                     <option value="Nome">Nome</option>
-                    <option value="Prova1">Prova 1</option>
-                    <option value="Prova2">Prova 2</option>
-                    <option value="Prova3">Prova 3</option>
-                    <option value="ProvaFinal">Prova Final</option>
                     <option value="Media">Media</option>
                     <option value="ProvaEspecial">Prova Competicao</option>
                     <option value="MediaCompeticao">Media Competição</option>
@@ -46,10 +42,6 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Prova 1</th>
-                    <th>Prova 2</th>
-                    <th>Prova 3</th>
-                    <th>Prova Final</th>
                     <th>Media</th>
                     <th>Prova Competição</th>
                     <th>Media Competição</th>
@@ -62,10 +54,6 @@
                 <tr ng-repeat="a in alunos | orderBy : ordenacao">
                     <td>{{a.IdAluno}}</td>
                     <td>{{a.Nome}}</td>
-                    <td>{{a.Prova1}}</td>
-                    <td>{{a.Prova2}}</td>
-                    <td>{{a.Prova3}}</td>
-                    <td>{{a.ProvaFinal}}</td>
                     <td>{{a.Media}}</td>
                     <td>{{a.ProvaEspecial}}</td>
                     <td>{{a.MediaCompeticao}}</td>
