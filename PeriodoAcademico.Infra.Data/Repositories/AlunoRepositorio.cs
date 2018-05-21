@@ -62,9 +62,12 @@ namespace PeriodoAcademico.Infra.Data.Repositories
         {
             using (DataContext d = new DataContext())
             {
+
                 return d.Aluno.Where(a => a.Situacao == Projeto.Entities.Enum.Situacao.Aprovado).OrderByDescending(a => a.Media).Take(5).ToList();
             }
         }
+
+     
        
     }
 }

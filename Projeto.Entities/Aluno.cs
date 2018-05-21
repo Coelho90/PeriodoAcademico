@@ -33,6 +33,7 @@ namespace Projeto.Entities
 
         public Aluno()
         {
+            Situacao = Situacao.Matriculado;
 
         }
 
@@ -52,7 +53,7 @@ namespace Projeto.Entities
             Turma = turma;
         }
 
-        public double MediaFinal()
+        public void MediaFinal()
         {
             double pesoProva1 = 1;
             double pesoProva2 = 1.2;
@@ -67,38 +68,37 @@ namespace Projeto.Entities
             {
                 mediaFinal = (Prova1 * pesoProva1 + Prova2 * pesoProva2 + Prova3 * pesoProva3) / (pesoProva1 + pesoProva2 + pesoProva3);
             }
-            DefineSituacao(mediaFinal);
             Media = Math.Round(mediaFinal, 1);
-            return Media;
+            DefineSituacao();
         }
 
 
-        private void DefineSituacao(double mediaFinal)
+        private void DefineSituacao()
         {
             double mediaAprovado = 6;
             double mediaReprovado = 4;
             double mediaRecuperacao = 5;
 
-            if (ProvaFinal != 0 && mediaFinal < mediaRecuperacao)
+            if (ProvaFinal != 0 && Media < mediaRecuperacao)
             {
                 Situacao = Situacao.Reprovado;
 
             }
-            else if (mediaFinal < mediaAprovado && mediaFinal >= mediaReprovado)
+            else if (Situacao == Situacao.Matriculado && Media < mediaAprovado && Media >= mediaReprovado)
             {
                 Situacao = Situacao.Recuperacao;
             }
-            else if (mediaFinal <= 4)
+            else if (Media <= 4)
             {
                 Situacao = Situacao.Reprovado;
             }
-            else if (Situacao == Situacao.Recuperacao && mediaFinal >= mediaRecuperacao)
+            else if (Situacao == Situacao.Recuperacao && Media >= mediaRecuperacao)
             {
                 Situacao = Situacao.Aprovado;
 
 
             }
-            else if (mediaFinal >= mediaAprovado)
+            else if (Media >= mediaAprovado)
             {
                 Situacao = Situacao.Aprovado;
 
@@ -111,11 +111,11 @@ namespace Projeto.Entities
             Prova1 = AlunosUtil.NotasAleatorias();
             Prova2 = AlunosUtil.NotasAleatorias();
             Prova3 = AlunosUtil.NotasAleatorias();
-            DefineSituacao(MediaFinal());
+            MediaFinal();
             if (Situacao == Situacao.Recuperacao)
             {
                 ProvaFinal = AlunosUtil.NotasAleatorias();
-                DefineSituacao(MediaFinal());
+                MediaFinal();
             }
 
         }

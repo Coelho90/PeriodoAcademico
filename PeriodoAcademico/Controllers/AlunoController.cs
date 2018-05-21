@@ -109,12 +109,17 @@ namespace PeriodoAcademico.Controllers
         {
             try
             {
+                int i = 0;
                 List<AlunoConsultaViewModel> lista = new List<AlunoConsultaViewModel>();
-
                 AlunoRepositorio rp = new AlunoRepositorio();
                 foreach (Aluno a in rp.ListTopFive())
                 {
                     AlunoConsultaViewModel model = new AlunoConsultaViewModel();
+
+                    if (i == 0)
+                    {
+                        a.FlagCompeticao = true;
+                    }
 
                     model.IdAluno = a.IdAluno;
                     model.Nome = a.Nome;
@@ -131,9 +136,12 @@ namespace PeriodoAcademico.Controllers
 
                     rp.Update(a);
                     lista.Add(model);
+                    i++;
                     
 
                 }
+                
+
 
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
