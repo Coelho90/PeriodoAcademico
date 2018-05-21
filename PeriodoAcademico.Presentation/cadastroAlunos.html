@@ -22,9 +22,14 @@
             <br />
 
             <label>ID da Turma:</label>
-            <input type="text" class="form-control"
-                   ng-model="aluno.IdTurma" />
+            <select class="form-control" ng-model="aluno.IdTurma"  ng-init="listarTurmas()" >
+                <option ng-repeat="t in turmas" value="{{t.IdTurma}}">{{t.IdTurma}}</option>
+
+            </select>
+
             <br />
+            <br />
+
 
             <button class="btn btn-success" ng-click="cadastrar()">
                 Cadastrar Aluno
@@ -72,6 +77,19 @@
                             $scope.mensagem = "Ocorreu um erro: " + e.data;
                         });
                 };
+
+                $scope.listarTurmas = function () {
+
+
+                    $http.get("http://localhost:63823/api/turma/listartodos")
+                        .then(function (d) {
+                            $scope.turmas = d.data;
+                        })
+                        .catch(function (e) {
+                            $scope.mensagem = e.data;
+                        });
+                }
+
             });
 
     </script>
