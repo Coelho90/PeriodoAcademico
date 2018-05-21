@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using PeriodoAcademico.Utils;
 
 namespace PeriodoAcademico.Controllers
 {
@@ -32,7 +33,7 @@ namespace PeriodoAcademico.Controllers
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.BadGateway, ModelState);
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, ValidationUtil.GetValidationErrors(ModelState));
                 }
             }
             catch (Exception e)

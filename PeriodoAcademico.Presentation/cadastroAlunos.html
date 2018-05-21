@@ -17,15 +17,21 @@
         <div class="col-md-4" ng-controller="cadastroController">
 
             <label>Nome do Aluno:</label>
-            <input type="text" class="form-control"
-                   ng-model="aluno.Nome" />
+            <input type="text" class="form-control" placeholder="Nome do Aluno" ng-model="aluno.Nome" />
+            <div class="text-danger" ng-repeat="e in erros['model.Nome']">
+                <strong>{{e}}</strong>
+            </div>
             <br />
 
-            <label>ID da Turma:</label>
-            <select class="form-control" ng-model="aluno.IdTurma"  ng-init="listarTurmas()" >
-                <option ng-repeat="t in turmas" value="{{t.IdTurma}}">{{t.IdTurma}}</option>
+            <label>Turma:</label>
+            <select class="form-control" ng-model="aluno.IdTurma" ng-init="listarTurmas()">
+                <option disabled value="">Selecione uma Turma</option>
+                <option ng-repeat="t in turmas" value="{{t.IdTurma}}">{{t.Nome}}</option>
 
             </select>
+            <div class="text-danger" ng-repeat="e in erros['model.IdTurma']">
+                <strong>{{e}}</strong>
+            </div>  
 
             <br />
             <br />
@@ -74,7 +80,18 @@
                             $scope.aluno = {};
                         })
                         .catch(function (e) {
-                            $scope.mensagem = "Ocorreu um erro: " + e.data;
+
+                            if (e.status == 400) { 
+
+                                $scope.erros = e.data;
+
+                                $scope.mensagem = "";
+                            }
+                            else {
+                               
+                                    
+                                $scope.mensagem = e.data;
+                            }      
                         });
                 };
 
@@ -86,7 +103,10 @@
                             $scope.turmas = d.data;
                         })
                         .catch(function (e) {
-                            $scope.mensagem = e.data;
+                         
+                                
+                                $scope.mensagem = e.data;
+                                 
                         });
                 }
 

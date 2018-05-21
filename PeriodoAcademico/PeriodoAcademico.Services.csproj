@@ -116,6 +116,7 @@
     <Compile Include="Models\TurmaCadastroViewModel.cs" />
     <Compile Include="Models\TurmaConsultaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ValidationUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
